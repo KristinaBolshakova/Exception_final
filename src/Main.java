@@ -85,32 +85,33 @@ public class Main {
 
     public static void Birthday(String birth, StringBuilder ds) {
         if (birth.length() <= 10 && birth.length() > 1) {
+
+            String[] birthDate = birth.split("\\.");
+
             try {
-                String[] birthDate = birth.split("\\.");
+                int day = Integer.parseInt(birthDate[0]);
+                int month = Integer.parseInt(birthDate[1]);
+                int year = Integer.parseInt(birthDate[2]);
 
-                try {
-                    int day = Integer.parseInt(birthDate[0]);
-                    int month = Integer.parseInt(birthDate[1]);
-                    int year = Integer.parseInt(birthDate[2]);
-
-                    if ((day > 0 && day <= 31)) {
-                        ds.append("<").append(day).append(".");
-                    }
-                    if (month > 0 && month <= 12) {
-                        ds.append(birthDate[1]).append(".");
-                    }
-                    if (year > 1900) {
-                        ds.append(year).append(">");
-                    } else {
-                        throw new RuntimeException("Неверный формат даты.");
-                    }
-
-                } catch (Exception e) {
-                    throw new RuntimeException("Введены не целочисленные значения");
+                if ((day > 0 && day <= 31)) {
+                    ds.append("<").append(day).append(".");
                 }
-            } catch (Exception e) {
+                if (month > 0 && month <= 12) {
+                    ds.append(birthDate[1]).append(".");
+                }
+                if (year > 1900) {
+                    ds.append(year).append(">");
+                } else {
+                    throw new RuntimeException("Неверный формат даты.");
+                }
+
+            } catch (NumberFormatException e) {
+                throw new RuntimeException("Введены не целочисленные значения");
+            } catch (ArrayIndexOutOfBoundsException e) {
                 throw new RuntimeException("Неверный формат даты. Необходимо ввести данные в формате dd.mm.yyyy");
             }
+
+
         }
     }
 
